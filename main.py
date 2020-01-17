@@ -39,7 +39,7 @@ def users(update, context):
                 names.append('@' + (bot.get_chat_member(c, c).user.username) + ' -> ' + str(c))
             except:
                 pass
-    bot.send_message(-323913787, '\n'.join(names), parse_mode="Markdown" )
+    bot.send_message(-323913787, '\n'.join(names), parse_mode="HTML" )
 
 def post(update, context):
     chats = load_chats()
@@ -49,7 +49,7 @@ def post(update, context):
     if (update['message']['chat']['id'] == -323913787):
         for c in chats:
             try:
-                bot.send_message(c, text, parse_mode="Markdown" )
+                bot.send_message(c, text, parse_mode="HTML" )
                 nchats.append(c)
             except:
                 save = True
@@ -61,7 +61,7 @@ def tell(update, context):
     if (update['message']['chat']['id'] == -323913787):
         text = " ".join( update['message']['text'].split(" ")[2:] )
         i = update['message']['text'].split(" ")[1]
-        bot.send_message(i, text, parse_mode="Markdown" )
+        bot.send_message(i, text, parse_mode="HTML" )
 
 
 def reward(update, context):
@@ -71,7 +71,7 @@ def reward(update, context):
         i = bot.get_chat(text).id
         #CAADAQADAgADf3BGHAXMZNg3IivIFgQ
         bot.send_sticker(i, 'CAADAQADAgADf3BGHAXMZNg3IivIFgQ')
-        #bot.send_message(i, 'You have been given 20 social credits!', parse_mode="Markdown" )
+        #bot.send_message(i, 'You have been given 20 social credits!', parse_mode="HTML" )
 
 def punish(update, context):
     """pun."""
@@ -79,15 +79,15 @@ def punish(update, context):
         text = update['message']['text'][8:]
         i = bot.get_chat(text).id
         bot.send_sticker(i, 'CAADAQADAwADf3BGHENZiEtY50bNFgQ')
-        #bot.send_message(i, '20 social credits have been removed!', parse_mode="Markdown" )
+        #bot.send_message(i, '20 social credits have been removed!', parse_mode="HTML" )
 
 def other(update, context):
     """other."""
     if (update['message']['chat']['id'] != -323913787):
         if(update['message']['sticker']):
-            bot.send_message(-323913787, 'Sticker from @' +update['message']['chat']['username'] , parse_mode="Markdown" )
+            bot.send_message(-323913787, 'Sticker from @' +update['message']['chat']['username'] , parse_mode="HTML" )
         bot.forward_message(-323913787, update['message']['chat']['id'], update['message']['message_id'])
-        #bot.send_message(i, '20 social credits have been removed!', parse_mode="Markdown" )
+        #bot.send_message(i, '20 social credits have been removed!', parse_mode="HTML" )
 
 
 def tg_bot():
