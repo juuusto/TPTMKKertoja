@@ -45,12 +45,7 @@ def post(update, context):
     chats = load_chats()
     save = False
     nchats = []
-    #print(context.chat_data)
-    #print(update)
-    #print(update['message']['chat'])
-    print()
     text = update['message']['text'][5:]
-    print(text)
     if (update['message']['chat']['id'] == -323913787):
         for c in chats:
             try:
@@ -61,16 +56,22 @@ def post(update, context):
         if save:
             save_channels(chats)
 
+def tell(update, context):
+    """tell."""
+    if (update['message']['chat']['id'] == -323913787):
+        text = " ".join( update['message']['text'].split(" ")[2:] )
+        i = bot.get_chat(text).id
+        bot.send_message(i, text, parse_mode="Markdown" )
+
+
 def reward(update, context):
     """rew."""
-    print("ye")
     if (update['message']['chat']['id'] == -323913787):
         text = update['message']['text'][8:]
         i = bot.get_chat(text).id
         #CAADAQADAgADf3BGHAXMZNg3IivIFgQ
         bot.send_sticker(i, 'CAADAQADAgADf3BGHAXMZNg3IivIFgQ')
         #bot.send_message(i, 'You have been given 20 social credits!', parse_mode="Markdown" )
-    print("done")
 
 def punish(update, context):
     """pun."""
@@ -99,9 +100,10 @@ def tg_bot():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("post", post))
     dp.add_handler(CommandHandler("help", help))
     dp.add_handler(CommandHandler("list", users))
+    dp.add_handler(CommandHandler("post", post))
+    dp.add_handler(CommandHandler("tell", tell))
     dp.add_handler(CommandHandler("reward", reward))
     dp.add_handler(CommandHandler("punish", punish))
     dp.add_handler(MessageHandler(Filters.all, other))
