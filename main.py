@@ -3,7 +3,7 @@
 import telegram
 import argparse
 import json
-from telegram.ext import Updater, CommandHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 from constants import BOTTOKEN
 from messages import NEWCOMMENT, NEWTHREAD
@@ -80,6 +80,14 @@ def punish(update, context):
         bot.send_sticker(i, 'CAADAQADAwADf3BGHENZiEtY50bNFgQ')
         #bot.send_message(i, '20 social credits have been removed!', parse_mode="Markdown" )
 
+def other(update, context):
+    """other."""
+    if (update['message']['chat']['id'] != -323913787):
+        if(update['message']['sticker']):
+            bot.send_message(-323913787, 'Sticker from @' +update['message']['chat']['username'] , parse_mode="Markdown" )
+        bot.forward_message(-323913787, update['message']['chat']['id'], update['message']['message_id'])
+        #bot.send_message(i, '20 social credits have been removed!', parse_mode="Markdown" )
+
 
 def tg_bot():
     print("starting bot")
@@ -96,6 +104,7 @@ def tg_bot():
     dp.add_handler(CommandHandler("list", users))
     dp.add_handler(CommandHandler("reward", reward))
     dp.add_handler(CommandHandler("punish", punish))
+    dp.add_handler(MessageHandler(Filters.all, other))
 
     # Start the Bot
     updater.start_polling()
