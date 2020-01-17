@@ -60,7 +60,7 @@ def tell(update, context):
     """tell."""
     if (update['message']['chat']['id'] == -323913787):
         text = " ".join( update['message']['text'].split(" ")[2:] )
-        i = bot.get_chat(text).id
+        i = update['message']['text'].split(" ")[1]
         bot.send_message(i, text, parse_mode="Markdown" )
 
 
