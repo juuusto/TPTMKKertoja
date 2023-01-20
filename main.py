@@ -27,12 +27,12 @@ def start(update, context):
     chats = load_chats()
     chats.append(str(update.message.chat_id))
     save_channels(chats)
-    update.message.reply_text("Thank you for subsciring to Kertoja!")
+    update.message.reply_text("A wizard is never late, nor is he early, he arrives precisely when he means to.")
 
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text("Risto Reipaaas!")
+    update.message.reply_text("GANDAAALF!")
 
 
 def users(update, context):
@@ -74,25 +74,6 @@ def tell(update, context):
         bot.send_message(i, text, parse_mode="HTML")
 
 
-## Sends social credit pooh sticker
-def reward(update, context):
-    """rew."""
-    if update["message"]["chat"]["id"] == HOST_GROUP:
-        text = update["message"]["text"][8:]
-        i = bot.get_chat(text).id
-        # CAADAQADAgADf3BGHAXMZNg3IivIFgQ
-        bot.send_sticker(i, "CAADAQADAgADf3BGHAXMZNg3IivIFgQ")
-
-
-## Sends social credit pooh sticker
-def punish(update, context):
-    """pun."""
-    if update["message"]["chat"]["id"] == HOST_GROUP:
-        text = update["message"]["text"][8:]
-        i = bot.get_chat(text).id
-        bot.send_sticker(i, "CAADAQADAwADf3BGHENZiEtY50bNFgQ")
-
-
 def other(update, context):
     """other."""
     if update["message"]["chat"]["id"] != HOST_GROUP:
@@ -121,8 +102,8 @@ def tg_bot():
     dp.add_handler(CommandHandler("list", users))
     dp.add_handler(CommandHandler("post", post))
     dp.add_handler(CommandHandler("tell", tell))
-    dp.add_handler(CommandHandler("reward", reward))
-    dp.add_handler(CommandHandler("punish", punish))
+    #dp.add_handler(CommandHandler("reward", reward))
+    #dp.add_handler(CommandHandler("punish", punish))
     dp.add_handler(MessageHandler(Filters.all, other))
 
     # Start the Bot
